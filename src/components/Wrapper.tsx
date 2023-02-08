@@ -6,14 +6,12 @@ type WrapperProps = {};
 export default function Wrapper({
   children,
 }: React.PropsWithChildren<WrapperProps>) {
-  return <ScWrapper isActive={true}>{children}</ScWrapper>;
+  return <ScWrapper>{children}</ScWrapper>;
 }
 
-const ScWrapper = styled.div<{ isActive: boolean }>`
-  background-color: ${(props) => (props.isActive ? "red" : "blue")};
-  height: 100vh;
-
-  :hover {
-    background-color: green;
-  }
+const ScWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 `;
