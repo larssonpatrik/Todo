@@ -21,7 +21,10 @@ export default function TaskItem({
       <AiOutlineClose
         size={20}
         style={{ cursor: "pointer", color: "#CF4242" }}
-        onClick={() => removeTask(children)}
+        onClick={() => {
+          changeStatus();
+          removeTask(children);
+        }}
       />
     </ScDiv>
   );

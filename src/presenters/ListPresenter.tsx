@@ -9,22 +9,22 @@ export default function ListPresenter({ title }: ListPresenterProps) {
   const [taskList, setTaskList] = useState<string[]>([]);
   const [completedTaskList, setCompletedTaskList] = useState<boolean[]>([]);
 
+  console.log(completedTaskList);
+
   function addTaskToListCB(taskToBeAdded: string) {
     setTaskList([...taskList, taskToBeAdded]);
     setCompletedTaskList([...completedTaskList, false]);
   }
 
   function removeTaskFromListCB(taskToBeRemoved: string) {
-    function findSameCB(task: string, i: number) {
-      setCompletedTaskList(
-        completedTaskList.filter((value, index) => {
-          return index !== i;
-        })
-      );
-      return task !== taskToBeRemoved;
+    function findSameTaskCB(task: string, i: number) {
+      if (task !== taskToBeRemoved) {
+        return task !== taskToBeRemoved;
+      }
     }
 
-    setTaskList([...taskList.filter(findSameCB)]);
+    setCompletedTaskList([...completedTaskList, true]);
+    setTaskList([...taskList.filter(findSameTaskCB)]);
   }
 
   function setTaskAsCompleted(index: number) {
