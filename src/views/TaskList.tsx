@@ -61,6 +61,7 @@ const ScDiv = styled.div`
   padding: 24px;
   border-radius: 8px;
   background-color: #f0f0f0;
+  width: 18vw;
 
   @media (max-width: 480px) {
     padding: 16px;

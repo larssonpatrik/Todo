@@ -56,7 +56,6 @@ const ScDiv = styled.div`
 `;
 
 const ScInput = styled.input`
-  width: 350px;
   border-radius: 8px;
   border: none;
   font-size: 16px;

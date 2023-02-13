@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Spacer from "../components/Spacer";
 import ListPresenter from "../presenters/ListPresenter";
 import styled from "styled-components";
@@ -58,9 +58,9 @@ export default function ListGrid({
 const ScDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 32px;
-  row-gap: 32px;
-  padding: 0 40px;
+  padding: 0 56px;
 `;
 
 const ScAddListElement = styled.div<{ addingState: boolean }>`
@@ -68,9 +68,8 @@ const ScAddListElement = styled.div<{ addingState: boolean }>`
   flex-direction: column;
   ${(props) =>
     !props.addingState ? "justify-content: center; align-items: center;" : null}
-  width: 430px;
-  padding: 16px;
+  width: 18vw;
+  padding: 21px;
   border-radius: 8px;
   border: 3px solid #f0f0f0;
-  box-sizing: border-box;
 `;

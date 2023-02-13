@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-type H1Props = {};
-type H2Props = {};
+type H1Props = { style?: any };
+type H2Props = { style?: any };
 type ParagraphProps = {
   color?: string;
   align?: string;
@@ -11,12 +11,12 @@ type ParagraphProps = {
   style?: any;
 };
 
-export function H1({ children }: React.PropsWithChildren<H1Props>) {
-  return <ScH1>{children}</ScH1>;
+export function H1({ children, style }: React.PropsWithChildren<H1Props>) {
+  return <ScH1 style={{ ...style }}>{children}</ScH1>;
 }
 
-export function H2({ children }: React.PropsWithChildren<H2Props>) {
-  return <ScH2>{children}</ScH2>;
+export function H2({ children, style }: React.PropsWithChildren<H2Props>) {
+  return <ScH2 style={{ ...style }}>{children}</ScH2>;
 }
 
 export function Paragraph({
@@ -43,13 +43,13 @@ export function Paragraph({
 const ScH1 = styled.h1`
   font-family: "Open Sans";
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 600;
 `;
 
 const ScH2 = styled.h2`
   font-family: "Open Sans";
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
 `;
 
 const ScParagraph = styled.p<{
