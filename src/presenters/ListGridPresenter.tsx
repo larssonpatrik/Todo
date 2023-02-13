@@ -8,7 +8,6 @@ import ListInputForm from "../components/ListInputForm";
 
 export default function ListGridPresenter() {
   const [TodoList, setTodoList] = useState<string[]>([]);
-
   const [addingState, setAddingState] = useState<boolean>(false);
 
   function addToList(listToBeAdded: string) {
@@ -26,11 +25,11 @@ export default function ListGridPresenter() {
   return (
     <ScDiv>
       {TodoList.map((title) => {
-        return <ListPresenter title={title} />;
+        return <ListPresenter title={title} removeList={removeFromList} />;
       })}
       <ScAddListElement addingState={addingState}>
         {addingState ? (
-          <div style={{}}>
+          <div>
             <H2>List name</H2>
             <ListInputForm action={addToList} />
             <Spacer size={1} />
@@ -77,6 +76,6 @@ const ScAddListElement = styled.div<{ addingState: boolean }>`
   width: 430px;
   padding: 24px;
   border-radius: 8px;
-  border: 3px solid #dcdcdc;
+  border: 3px solid #f0f0f0;
   box-sizing: border-box;
 `;

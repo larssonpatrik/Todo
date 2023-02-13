@@ -3,12 +3,11 @@ import styled from "styled-components";
 import InputItem from "./InputItem";
 import Spacer from "./Spacer";
 import TaskItem from "./TaskItem";
-import { H2 } from "./Typography";
+import { H2, Paragraph } from "./Typography";
 
 type TaskListProps = {
-  taskList: string[];
+  taskList: { task: string; completed: boolean }[];
   title: string;
-  completedTaskList: boolean[];
   functions: any[];
 };
 
@@ -16,23 +15,38 @@ export default function TaskList({
   taskList,
   title,
   functions,
-  completedTaskList,
 }: TaskListProps) {
-  const [addToList, removeFromList, changeState] = functions;
-
+  //
+  // functions from props
+  const [addToList, removeFromList, changeState, removeList] = functions;
   return (
     <ScDiv>
-      <H2>{title}</H2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+        }}
+      >
+        <H2>{title}</H2>
+        <Paragraph
+          action={() => removeList(title)}
+          style={{ textDecoration: "underline", fontSize: 14 }}
+          button={true}
+        >
+          Remove list
+        </Paragraph>
+      </div>
       <Spacer size={3} />
-      {taskList.map((task, i) => {
+      {taskList.map((obj, i) => {
         return (
           <>
             <TaskItem
               removeTask={removeFromList}
-              status={completedTaskList[i]}
+              status={obj.completed}
               changeStatus={() => changeState(i)}
             >
-              {task}
+              {obj.task}
             </TaskItem>
             <Spacer size={1} />
           </>
@@ -46,7 +60,7 @@ export default function TaskList({
 const ScDiv = styled.div`
   padding: 24px;
   border-radius: 8px;
-  background-color: #dcdcdc;
+  background-color: #f0f0f0;
 
   @media (max-width: 480px) {
     padding: 16px;

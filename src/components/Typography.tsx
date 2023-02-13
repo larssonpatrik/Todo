@@ -8,6 +8,7 @@ type ParagraphProps = {
   align?: string;
   button?: boolean;
   action?: any;
+  style?: any;
 };
 
 export function H1({ children }: React.PropsWithChildren<H1Props>) {
@@ -24,13 +25,15 @@ export function Paragraph({
   align,
   button,
   action,
+  style,
 }: React.PropsWithChildren<ParagraphProps>) {
   return (
     <ScParagraph
       color={color}
       align={align}
       button={button}
-      onClick={() => action()}
+      onClick={action}
+      style={style}
     >
       {children}
     </ScParagraph>

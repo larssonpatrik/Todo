@@ -3,42 +3,51 @@ import TaskList from "../components/TaskList";
 
 type ListPresenterProps = {
   title: string;
+  removeList: Function;
 };
 
-export default function ListPresenter({ title }: ListPresenterProps) {
-  const [taskList, setTaskList] = useState<string[]>([]);
-  const [completedTaskList, setCompletedTaskList] = useState<boolean[]>([]);
+export default function ListPresenter({
+  title,
+  removeList,
+}: ListPresenterProps) {
+  const [taskList, setTaskList] = useState<
+    { task: string; completed: boolean }[]
+  >([]);
 
-  console.log(completedTaskList);
-
-  function addTaskToListCB(taskToBeAdded: string) {
+  function addTaskToListCB(taskToBeAdded: {
+    task: string;
+    completed: boolean;
+  }) {
     setTaskList([...taskList, taskToBeAdded]);
-    setCompletedTaskList([...completedTaskList, false]);
   }
 
   function removeTaskFromListCB(taskToBeRemoved: string) {
-    function findSameTaskCB(task: string, i: number) {
-      if (task !== taskToBeRemoved) {
-        return task !== taskToBeRemoved;
-      }
+    function findSameTaskCB(taskObj: { task: string; completed: boolean }) {
+      return taskObj.task !== taskToBeRemoved;
     }
 
-    setCompletedTaskList([...completedTaskList, true]);
     setTaskList([...taskList.filter(findSameTaskCB)]);
   }
 
-  function setTaskAsCompleted(index: number) {
-    let tempArray = [...completedTaskList];
-    tempArray[index] = !tempArray[index];
-    setCompletedTaskList(tempArray);
+  function changeTaskStatus(index: number) {
+    let temp = [...taskList];
+    temp[index] = { ...temp[index], completed: !temp[index].completed };
+
+    setTaskList(temp);
   }
+
+  console.log(taskList);
 
   return (
     <TaskList
       taskList={taskList}
       title={title}
-      completedTaskList={completedTaskList}
-      functions={[addTaskToListCB, removeTaskFromListCB, setTaskAsCompleted]}
+      functions={[
+        addTaskToListCB,
+        removeTaskFromListCB,
+        changeTaskStatus,
+        removeList,
+      ]}
     />
   );
 }

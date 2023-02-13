@@ -16,8 +16,8 @@ export default function TaskItem({
   status,
 }: React.PropsWithChildren<TaskItemProps>) {
   return (
-    <ScDiv status={status} onClick={() => changeStatus()}>
-      <Paragraph>{children}</Paragraph>
+    <ScDiv status={status}>
+      <Paragraph action={changeStatus}>{children}</Paragraph>
       <AiOutlineClose
         size={20}
         style={{ cursor: "pointer", color: "#CF4242" }}
