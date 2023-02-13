@@ -47,7 +47,7 @@ const ScDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  width: 350px;
+  min-width: 350px;
   border-radius: 8px;
   background-color: white;
   @media (max-width: 480px) {
@@ -56,7 +56,7 @@ const ScDiv = styled.div`
 `;
 
 const ScInput = styled.input`
-  width: 350px;
+  min-width: 350px;
   border-radius: 8px;
   border: none;
   font-size: 16px;

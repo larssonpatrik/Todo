@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TaskList from "../components/TaskList";
+import TaskList from "../views/TaskList";
 
 type ListPresenterProps = {
   title: string;

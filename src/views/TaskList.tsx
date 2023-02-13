@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import InputItem from "./InputItem";
-import Spacer from "./Spacer";
-import TaskItem from "./TaskItem";
-import { H2, Paragraph } from "./Typography";
+import InputItem from "../components/InputItem";
+import Spacer from "../components/Spacer";
+import TaskItem from "../components/TaskItem";
+import { H2, Paragraph } from "../components/Typography";
 
 type TaskListProps = {
   taskList: { task: string; completed: boolean }[];
