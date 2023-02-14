@@ -4,7 +4,7 @@ import ListPresenter from "../presenters/ListPresenter";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
 import { H2, Paragraph } from "../components/Typography";
-import ListInputForm from "../components/ListInputForm";
+import InputForm from "../components/InputForm";
 
 type ListGridProps = {
   todoArray: string[];
@@ -30,7 +30,8 @@ export default function ListGrid({
         {addingState ? (
           <div>
             <H2>List name</H2>
-            <ListInputForm action={addToList} />
+            <Spacer size={1} />
+            <InputForm action={addToList} />
             <Spacer size={1} />
             <Paragraph
               align="center"

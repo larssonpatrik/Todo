@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
 
-type ListInputFormProps = {
+type InputFormProps = {
   action: Function;
 };
 
-export default function ListInputForm({ action }: ListInputFormProps) {
+export default function InputForm({ action }: InputFormProps) {
   const [input, setInput] = useState<string>("");
 
   function onInputChange(event: any) {
@@ -46,8 +46,7 @@ const ScDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0px;
-  width: 350px;
+  width: 100%;
   border-radius: 8px;
   background-color: white;
   @media (max-width: 480px) {
