@@ -40,8 +40,14 @@ export default function Sidebar({
   const [addingState, setAddingState] = SBaddingState;
 
   function addPageCB(listName: string) {
-    setPagelist([...pageList, { title: listName, lists: [] }]);
-    setAddingState(!addingState);
+    if (pageList.length === 0) {
+      setPagelist([...pageList, { title: listName, lists: [] }]);
+      setActivePage({ title: listName, lists: [] });
+      setAddingState(!addingState);
+    } else {
+      setPagelist([...pageList, { title: listName, lists: [] }]);
+      setAddingState(!addingState);
+    }
   }
 
   function setActivePageCB(index: number) {
@@ -98,7 +104,6 @@ const ScSidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 80px 32px;
-  min-height: 100vh;
   width: 20vw;
   background-color: #f0f0f0;
 `;

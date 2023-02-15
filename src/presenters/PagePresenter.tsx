@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Spacer from "../components/Spacer";
 import { H1 } from "../components/Typography";
 import Wrapper from "../components/Wrapper";
+import NoListsView from "../views/NoListsView";
 import ListGridPresenter from "./ListGridPresenter";
 import SidebarPresenter from "./SidebarPresenter";
 
@@ -14,14 +15,14 @@ export default function PagePresenter() {
         taskList: { task: string; completed: boolean }[];
       }[];
     }[]
-  >([{ title: "Apartment stuff", lists: [] }]);
+  >([]);
   const [activePage, setActivePage] = useState<{
     title: string;
     lists: {
       label: string;
       taskList: { task: string; completed: boolean }[];
     }[];
-  }>(pageList[0]);
+  }>({ title: "init", lists: [] });
   const [addingState, setAddingState] = useState<boolean>(false);
 
   function changeActivePage(page: {
@@ -43,8 +44,7 @@ export default function PagePresenter() {
     setPageList([...temp]);
   }
 
-  console.log("PAGELIST: ", pageList);
-  console.log("ACTIVEPAGE: ", activePage);
+  console.log(activePage);
   return (
     <Wrapper direction="row">
       <SidebarPresenter
@@ -53,11 +53,24 @@ export default function PagePresenter() {
         SBaddingState={[addingState, setAddingState]}
       />
       <Wrapper direction="col" style={{ width: "80vw" }}>
-        <Spacer size={7} />
-        <Spacer size={5} />
-        <H1>{activePage.title}</H1>
-        <Spacer size={6} />
-        <ListGridPresenter activePageState={[activePage, changeActivePage]} />
+        {pageList.length !== 0 ? (
+          <>
+            <Spacer size={7} />
+            <Spacer size={5} />
+            <H1>{activePage.title}</H1>
+            <Spacer size={6} />
+            <ListGridPresenter
+              activePageState={[activePage, changeActivePage]}
+            />
+          </>
+        ) : (
+          <>
+            <Spacer size={7} />
+            <Spacer size={7} />
+            <Spacer size={7} />
+            <NoListsView />
+          </>
+        )}
       </Wrapper>
     </Wrapper>
   );
