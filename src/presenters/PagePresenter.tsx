@@ -6,10 +6,45 @@ import ListGridPresenter from "./ListGridPresenter";
 import SidebarPresenter from "./SidebarPresenter";
 
 export default function PagePresenter() {
-  const [pageList, setPageList] = useState<string[]>(["Apartment stuff"]);
-  const [activePage, setActivePage] = useState<string>(pageList[0]);
+  const [pageList, setPageList] = useState<
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    }[]
+  >([{ title: "Apartment stuff", lists: [] }]);
+  const [activePage, setActivePage] = useState<{
+    title: string;
+    lists: {
+      label: string;
+      taskList: { task: string; completed: boolean }[];
+    }[];
+  }>(pageList[0]);
   const [addingState, setAddingState] = useState<boolean>(false);
 
+  function changeActivePage(page: {
+    title: string;
+    lists: {
+      label: string;
+      taskList: { task: string; completed: boolean }[];
+    }[];
+  }) {
+    setActivePage(page);
+
+    let temp = [...pageList];
+    temp.forEach((pageObj, i) => {
+      if (pageObj.title === activePage.title) {
+        temp[i] = page;
+      }
+    });
+
+    setPageList([...temp]);
+  }
+
+  console.log("PAGELIST: ", pageList);
+  console.log("ACTIVEPAGE: ", activePage);
   return (
     <Wrapper direction="row">
       <SidebarPresenter
@@ -20,9 +55,9 @@ export default function PagePresenter() {
       <Wrapper direction="col" style={{ width: "80vw" }}>
         <Spacer size={7} />
         <Spacer size={5} />
-        <H1>{activePage}</H1>
+        <H1>{activePage.title}</H1>
         <Spacer size={6} />
-        <ListGridPresenter />
+        <ListGridPresenter activePageState={[activePage, changeActivePage]} />
       </Wrapper>
     </Wrapper>
   );

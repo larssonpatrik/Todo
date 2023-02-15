@@ -2,8 +2,26 @@ import React, { useState } from "react";
 import Sidebar from "../views/Sidebar";
 
 type SidebarPresenterProps = {
-  SBpageList: [string[], Function];
-  SBactivePage: [string, Function];
+  SBpageList: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    }[],
+    Function
+  ];
+  SBactivePage: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    },
+    Function
+  ];
   SBaddingState: [boolean, Function];
 };
 

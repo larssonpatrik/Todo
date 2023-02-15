@@ -7,8 +7,26 @@ import { AiOutlinePlus } from "react-icons/ai";
 import InputForm from "../components/InputForm";
 
 type SidebarProps = {
-  SBpageList: [string[], Function];
-  SBactivePage: [string, Function];
+  SBpageList: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    }[],
+    Function
+  ];
+  SBactivePage: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    },
+    Function
+  ];
   SBaddingState: [boolean, Function];
 };
 
@@ -21,18 +39,18 @@ export default function Sidebar({
   const [activePage, setActivePage] = SBactivePage;
   const [addingState, setAddingState] = SBaddingState;
 
-  function addListCB(list: string) {
-    setPagelist([...pageList, list]);
+  function addPageCB(listName: string) {
+    setPagelist([...pageList, { title: listName, lists: [] }]);
     setAddingState(!addingState);
   }
 
-  function setActivePageCB(listName: string) {
-    setActivePage(listName);
+  function setActivePageCB(index: number) {
+    setActivePage(pageList[index]);
   }
 
-  function removeListCB(listName: string) {
-    function sameNameCB(list: string) {
-      return list !== listName;
+  function removeListCB(listName: { title: string; lists: {}[] }) {
+    function sameNameCB(list: { title: string; lists: {}[] }) {
+      return list.title !== listName.title;
     }
 
     setPagelist([...pageList.filter(sameNameCB)]);
@@ -42,14 +60,14 @@ export default function Sidebar({
     <ScSidebarContainer>
       <H2 style={{ paddingLeft: 24, color: "gray" }}>Todo Tracker</H2>
       <Spacer size={6} />
-      {pageList.map((page) => {
+      {pageList.map((pageObj, i) => {
         return (
           <>
             <SidebarItem
-              label={page}
-              active={activePage === page}
-              action={() => setActivePageCB(page)}
-              remove={() => removeListCB(page)}
+              label={pageObj.title}
+              active={activePage.title === pageObj.title}
+              action={() => setActivePageCB(i)}
+              remove={() => removeListCB(pageObj)}
             />
             <Spacer size={1} />
           </>
@@ -58,7 +76,7 @@ export default function Sidebar({
       <Spacer size={6} />
       <ScAddPage>
         {addingState ? (
-          <InputForm action={addListCB} />
+          <InputForm action={addPageCB} />
         ) : (
           <div
             style={{ display: "flex", alignItems: "center" }}

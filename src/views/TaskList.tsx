@@ -8,17 +8,22 @@ import { H2, Paragraph } from "../components/Typography";
 type TaskListProps = {
   taskList: { task: string; completed: boolean }[];
   title: string;
-  functions: any[];
+  addTask: Function;
+  removeTask: Function;
+  removeList: Function;
+  changeState: Function;
 };
 
 export default function TaskList({
   taskList,
   title,
-  functions,
+  addTask,
+  removeList,
+  removeTask,
+  changeState,
 }: TaskListProps) {
   //
   // functions from props
-  const [addToList, removeFromList, changeState, removeList] = functions;
   return (
     <ScDiv>
       <div
@@ -42,7 +47,7 @@ export default function TaskList({
         return (
           <>
             <TaskItem
-              removeTask={removeFromList}
+              removeTask={removeTask}
               status={obj.completed}
               changeStatus={() => changeState(i)}
             >
@@ -52,7 +57,7 @@ export default function TaskList({
           </>
         );
       })}
-      <InputItem action={addToList} />
+      <InputItem action={addTask} />
     </ScDiv>
   );
 }

@@ -1,47 +1,51 @@
 import React, { useState } from "react";
 import ListGrid from "../views/ListGrid";
 
-export default function ListGridPresenter() {
-  const [taskList, setTaskList] = useState<
-    { task: string; completed: boolean }[]
-  >([]);
-  const [TodoList, setTodoList] = useState<
+type ListGridPresenterProps = {
+  activePageState: [
     {
       title: string;
-      taskList: { task: string; completed: boolean }[];
-    }[]
-  >([]);
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    },
+    Function
+  ];
+};
+
+export default function ListGridPresenter({
+  activePageState,
+}: ListGridPresenterProps) {
   const [addingState, setAddingState] = useState<boolean>(false);
+  const [activePage, changeActivePage] = activePageState;
 
-  function addToList(listToBeAdded: {
-    title: string;
-    taskList: { task: string; completed: boolean }[];
-  }) {
-    setTodoList([...TodoList, listToBeAdded]);
-    setAddingState(!addingState);
+  function addList(listName: string) {
+    let temp = { ...activePage };
+    temp.lists = [...temp.lists, { label: listName, taskList: [] }];
+    changeActivePage({ ...temp });
   }
 
-  function removeFromList(listToBeRemoved: {
-    title: string;
-    taskList: { task: string; completed: boolean }[];
-  }) {
-    function findSameCB(listObject: {
-      title: string;
-      taskList: { task: string; completed: boolean }[];
-    }) {
-      return listObject.title !== listToBeRemoved.title;
-    }
-    setTodoList(TodoList.filter(findSameCB));
+  function removeList(listName: string) {
+    let temp = { ...activePage };
+    temp.lists = temp.lists.filter((listObj) => {
+      return listObj.label !== listName;
+    });
+
+    changeActivePage({ ...temp });
   }
 
-  console.log("Todo list: ", TodoList);
+  function changeState() {
+    alert("USER WANTS TO CHANGE STATE OF TASK!");
+  }
+
   return (
     <ListGrid
-      todoArray={TodoList}
-      taskListState={[taskList, setTaskList]}
+      activePageState={activePageState}
       addingState={[addingState, setAddingState]}
-      addToList={addToList}
-      removeFromList={removeFromList}
+      addList={addList}
+      removeList={removeList}
+      changeState={changeState}
     />
   );
 }

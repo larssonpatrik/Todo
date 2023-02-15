@@ -7,37 +7,76 @@ import { H2, Paragraph } from "../components/Typography";
 import InputForm from "../components/InputForm";
 
 type ListGridProps = {
-  todoArray: {
-    title: string;
-    taskList: { task: string; completed: boolean }[];
-  }[];
-  taskListState: [
-    taskList: { task: string; completed: boolean }[],
-    setTaskList: Function
+  activePageState: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    },
+    Function
   ];
+
   addingState: [addingState: boolean, setAddingState: Function];
-  addToList: Function;
-  removeFromList: Function;
+  addList: Function;
+  removeList: Function;
+  changeState: Function;
 };
 
 export default function ListGrid({
-  todoArray,
+  activePageState,
   addingState,
-  taskListState,
-  addToList,
-  removeFromList,
+  addList,
+  removeList,
+  changeState,
 }: ListGridProps) {
   const [addingStateVar, setAddingState] = addingState;
+  const [activePage, changeActivePage] = activePageState;
+
+  /* function changeTaskStatus(index: number) {
+    let temp = [...taskList];
+    temp[index] = { ...temp[index], completed: !temp[index].completed };
+
+    setTaskList(temp);
+  }
+  */
 
   return (
     <ScDiv>
-      {todoArray.map((listObj) => {
+      {activePage.lists.map((listObj, i) => {
+        function addTaskToList(task: string) {
+          let temp = { ...activePage };
+          temp.lists[i].taskList = [
+            ...temp.lists[i].taskList,
+            { task: task, completed: false },
+          ];
+          changeActivePage({ ...temp });
+        }
+
+        function removeTaskFromList(task: string) {
+          let temp = { ...activePage };
+          temp.lists[i].taskList = temp.lists[i].taskList.filter((taskObj) => {
+            return taskObj.task !== task;
+          });
+          changeActivePage({ ...temp });
+        }
+
+        function changeState(index: number) {
+          let temp = { ...activePage };
+          temp.lists[i].taskList[index].completed =
+            !temp.lists[i].taskList[index].completed;
+          changeActivePage({ ...temp });
+        }
+
         return (
           <ListPresenter
-            title={listObj.title}
-            removeList={removeFromList}
-            taskState={taskListState}
-            todoArray={todoArray}
+            taskList={listObj.taskList}
+            title={listObj.label}
+            addTask={addTaskToList}
+            removeTask={removeTaskFromList}
+            removeList={removeList}
+            changeState={changeState}
           />
         );
       })}
@@ -46,7 +85,7 @@ export default function ListGrid({
           <div>
             <H2>List name</H2>
             <Spacer size={1} />
-            <InputForm action={addToList} />
+            <InputForm action={addList} />
             <Spacer size={1} />
             <Paragraph
               align="center"

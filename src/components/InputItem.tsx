@@ -15,7 +15,7 @@ export default function InputItem({ action }: InputItemProps) {
 
   function onSubmit() {
     if (input !== "") {
-      action({ task: input, completed: false });
+      action(input);
       setInput("");
     }
   }
