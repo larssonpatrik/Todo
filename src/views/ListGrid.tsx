@@ -7,9 +7,15 @@ import { H2, Paragraph } from "../components/Typography";
 import InputForm from "../components/InputForm";
 
 type ListGridProps = {
-  todoArray: string[];
-  addingState: boolean;
-  changeAddingState: Function;
+  todoArray: {
+    title: string;
+    taskList: { task: string; completed: boolean }[];
+  }[];
+  taskListState: [
+    taskList: { task: string; completed: boolean }[],
+    setTaskList: Function
+  ];
+  addingState: [addingState: boolean, setAddingState: Function];
   addToList: Function;
   removeFromList: Function;
 };
@@ -17,17 +23,26 @@ type ListGridProps = {
 export default function ListGrid({
   todoArray,
   addingState,
-  changeAddingState,
+  taskListState,
   addToList,
   removeFromList,
 }: ListGridProps) {
+  const [addingStateVar, setAddingState] = addingState;
+
   return (
     <ScDiv>
-      {todoArray.map((title) => {
-        return <ListPresenter title={title} removeList={removeFromList} />;
+      {todoArray.map((listObj) => {
+        return (
+          <ListPresenter
+            title={listObj.title}
+            removeList={removeFromList}
+            taskState={taskListState}
+            todoArray={todoArray}
+          />
+        );
       })}
-      <ScAddListElement addingState={addingState}>
-        {addingState ? (
+      <ScAddListElement addingState={addingStateVar}>
+        {addingStateVar ? (
           <div>
             <H2>List name</H2>
             <Spacer size={1} />
@@ -36,7 +51,7 @@ export default function ListGrid({
             <Paragraph
               align="center"
               button={true}
-              action={() => changeAddingState(!addingState)}
+              action={() => setAddingState(!addingStateVar)}
             >
               Cancel
             </Paragraph>
@@ -44,7 +59,7 @@ export default function ListGrid({
         ) : (
           <div
             style={{ textAlign: "center", padding: 12, cursor: "pointer" }}
-            onClick={() => changeAddingState(!addingState)}
+            onClick={() => setAddingState(!addingStateVar)}
           >
             <AiOutlinePlus size={42} color="#dcdcdc" />
             <Spacer size={0} />

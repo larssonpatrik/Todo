@@ -9,7 +9,6 @@ export default function PagePresenter() {
   const [pageList, setPageList] = useState<string[]>(["Apartment stuff"]);
   const [activePage, setActivePage] = useState<string>(pageList[0]);
   const [addingState, setAddingState] = useState<boolean>(false);
-  console.log(activePage);
 
   return (
     <Wrapper direction="row">

@@ -3,16 +3,23 @@ import TaskList from "../views/TaskList";
 
 type ListPresenterProps = {
   title: string;
+  todoArray: {
+    title: string;
+    taskList: { task: string; completed: boolean }[];
+  }[];
+  taskState: [
+    taskList: { task: string; completed: boolean }[],
+    setTaskList: Function
+  ];
   removeList: Function;
 };
 
 export default function ListPresenter({
   title,
+  taskState,
   removeList,
 }: ListPresenterProps) {
-  const [taskList, setTaskList] = useState<
-    { task: string; completed: boolean }[]
-  >([]);
+  const [taskList, setTaskList] = taskState;
 
   function addTaskToListCB(taskToBeAdded: {
     task: string;
@@ -36,7 +43,7 @@ export default function ListPresenter({
     setTaskList(temp);
   }
 
-  console.log(taskList);
+  console.log("taskList: ", taskList);
 
   return (
     <TaskList

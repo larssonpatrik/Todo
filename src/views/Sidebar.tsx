@@ -51,7 +51,7 @@ export default function Sidebar({
               action={() => setActivePageCB(page)}
               remove={() => removeListCB(page)}
             />
-            <Spacer size={0} />
+            <Spacer size={1} />
           </>
         );
       })}
