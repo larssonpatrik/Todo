@@ -24,6 +24,7 @@ export default function ListGridPresenter({
     let temp = { ...activePage };
     temp.lists = [...temp.lists, { label: listName, taskList: [] }];
     changeActivePage({ ...temp });
+    setAddingState(!addingState);
   }
 
   function removeList(listName: string) {

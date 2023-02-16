@@ -57,6 +57,7 @@ const ScDiv = styled.div`
 const ScInput = styled.input`
   border-radius: 8px;
   border: none;
+  height: 22px;
   font-size: 16px;
   font-family: "Open Sans";
   caret-color: #cccccc;

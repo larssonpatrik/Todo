@@ -111,7 +111,7 @@ const ScSidebarContainer = styled.div`
 const ScAddPage = styled.div`
   display: flex;
   align-items: center;
-  padding: 24px;
+  padding: 20px 24px;
   border-radius: 8px;
   background-color: white;
   cursor: pointer;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Paragraph } from "./Typography";
 import { AiOutlineClose } from "react-icons/ai";
@@ -15,17 +15,26 @@ export default function TaskItem({
   changeStatus,
   status,
 }: React.PropsWithChildren<TaskItemProps>) {
+  const [hover, setHover] = useState(false);
   return (
-    <ScDiv status={status}>
-      <Paragraph action={changeStatus}>{children}</Paragraph>
-      <AiOutlineClose
-        size={20}
-        style={{ cursor: "pointer", color: "#CF4242" }}
-        onClick={() => {
-          changeStatus();
-          removeTask(children);
-        }}
-      />
+    <ScDiv
+      status={status}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <Paragraph action={changeStatus} style={{ lineHeight: "23.5px" }}>
+        {children}
+      </Paragraph>
+      {hover && (
+        <AiOutlineClose
+          size={16}
+          style={{ cursor: "pointer", color: "#CF4242" }}
+          onClick={() => {
+            changeStatus();
+            removeTask(children);
+          }}
+        />
+      )}
     </ScDiv>
   );
 }
