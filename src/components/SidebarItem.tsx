@@ -8,6 +8,7 @@ type SidebarItemProps = {
   active: boolean;
   action: Function;
   remove: Function;
+  mobile?: boolean;
 };
 
 export default function SidebarItem({
@@ -15,6 +16,7 @@ export default function SidebarItem({
   active,
   action,
   remove,
+  mobile,
 }: SidebarItemProps) {
   const [hover, setHover] = useState(false);
   return (
@@ -25,7 +27,10 @@ export default function SidebarItem({
       onMouseLeave={() => setHover(false)}
     >
       <Paragraph style={{ fontWeight: 600 }}>{label}</Paragraph>
-      {hover && (
+      {!mobile && hover && (
+        <AiOutlineClose size={16} color={"#CF4242"} onClick={() => remove()} />
+      )}
+      {mobile && (
         <AiOutlineClose size={16} color={"#CF4242"} onClick={() => remove()} />
       )}
     </ScSidebarItem>
@@ -38,6 +43,9 @@ const ScSidebarItem = styled.div<{ active: boolean }>`
   padding: 24px;
   border-radius: 8px;
   cursor: pointer;
+  @media (max-width: 480px) {
+    width: 300px;
+  }
 
   ${(props) => (props.active ? "background-color: white;" : null)}
 

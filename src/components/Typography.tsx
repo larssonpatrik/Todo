@@ -44,12 +44,20 @@ const ScH1 = styled.h1`
   font-family: "Open Sans";
   font-size: 32px;
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
 `;
 
 const ScH2 = styled.h2`
   font-family: "Open Sans";
   font-size: 20px;
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const ScParagraph = styled.p<{

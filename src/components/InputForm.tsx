@@ -49,6 +49,7 @@ const ScDiv = styled.div`
   width: 100%;
   border-radius: 8px;
   background-color: white;
+
   @media (max-width: 480px) {
     width: 300px;
   }
@@ -61,6 +62,10 @@ const ScInput = styled.input`
   font-size: 16px;
   font-family: "Open Sans";
   caret-color: #cccccc;
+
+  @media (max-width: 480px) {
+    height: 17px;
+  }
 
   ::placeholder {
     color: #cccccc;
