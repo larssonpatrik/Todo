@@ -45,6 +45,7 @@ const ScSidebarItem = styled.div<{ active: boolean }>`
   cursor: pointer;
   @media (max-width: 480px) {
     width: 300px;
+    background-color: white;
   }
 
   ${(props) => (props.active ? "background-color: white;" : null)}

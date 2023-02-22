@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import InputForm from "../components/InputForm";
 import SidebarItem from "../components/SidebarItem";
@@ -60,6 +61,13 @@ export default function MobilePageView({
     }
   }
 
+  const navigate = useNavigate();
+
+  function navigateToListCB(index: number) {
+    setActivePage(pageList[index]);
+    navigate("/mobile/" + pageList[index].title);
+  }
+  console.log(activePage);
   return (
     <Wrapper direction="col" style={{ backgroundColor: "#f0f0f0" }}>
       <Spacer size={6} />
@@ -77,7 +85,7 @@ export default function MobilePageView({
           <>
             <SidebarItem
               label={pageObj.title}
-              action={() => setActivePage(pageList[i])}
+              action={() => navigateToListCB(i)}
               active={activePage.title === pageObj.title}
               remove={() => removeListCB(pageObj)}
               mobile={true}

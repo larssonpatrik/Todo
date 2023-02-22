@@ -21,7 +21,6 @@ type ListGridProps = {
   addingState: [addingState: boolean, setAddingState: Function];
   addList: Function;
   removeList: Function;
-  changeState: Function;
 };
 
 export default function ListGrid({
@@ -29,18 +28,9 @@ export default function ListGrid({
   addingState,
   addList,
   removeList,
-  changeState,
 }: ListGridProps) {
   const [addingStateVar, setAddingState] = addingState;
   const [activePage, changeActivePage] = activePageState;
-
-  /* function changeTaskStatus(index: number) {
-    let temp = [...taskList];
-    temp[index] = { ...temp[index], completed: !temp[index].completed };
-
-    setTaskList(temp);
-  }
-  */
 
   return (
     <ScDiv>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ListGrid from "../views/ListGrid";
+import MobileListGrid from "../views/MobileListGrid";
 
 type ListGridPresenterProps = {
   activePageState: [
@@ -36,17 +37,26 @@ export default function ListGridPresenter({
     changeActivePage({ ...temp });
   }
 
-  function changeState() {
-    alert("USER WANTS TO CHANGE STATE OF TASK!");
-  }
+  let width: number;
+  width = window.innerWidth;
 
-  return (
-    <ListGrid
-      activePageState={activePageState}
-      addingState={[addingState, setAddingState]}
-      addList={addList}
-      removeList={removeList}
-      changeState={changeState}
-    />
-  );
+  if (width > 480) {
+    return (
+      <ListGrid
+        activePageState={activePageState}
+        addingState={[addingState, setAddingState]}
+        addList={addList}
+        removeList={removeList}
+      />
+    );
+  } else {
+    return (
+      <MobileListGrid
+        activePageState={activePageState}
+        addingState={[addingState, setAddingState]}
+        addList={addList}
+        removeList={removeList}
+      />
+    );
+  }
 }

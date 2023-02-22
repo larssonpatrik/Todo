@@ -63,12 +63,13 @@ export default function TaskList({
 }
 
 const ScDiv = styled.div`
-  padding: 24px;
   border-radius: 8px;
   background-color: #f0f0f0;
-  width: 18vw;
+  padding: 16px;
+  width: 310px;
 
-  @media (max-width: 480px) {
-    padding: 16px;
+  @media (min-width: 480px) {
+    padding: 24px;
+    width: 18vw;
   }
 `;

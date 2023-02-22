@@ -49,9 +49,6 @@ const ScDiv = styled.div`
   padding: 12px 16px;
   border-radius: 8px;
   background-color: white;
-  @media (max-width: 480px) {
-    width: 300px;
-  }
 `;
 
 const ScInput = styled.input`

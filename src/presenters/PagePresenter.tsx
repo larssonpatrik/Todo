@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import SidebarItem from "../components/SidebarItem";
 import Spacer from "../components/Spacer";
 import { H1, H2 } from "../components/Typography";
@@ -8,24 +9,38 @@ import NoListsView from "../views/NoListsView";
 import ListGridPresenter from "./ListGridPresenter";
 import SidebarPresenter from "./SidebarPresenter";
 
-export default function PagePresenter() {
-  const [pageList, setPageList] = useState<
+type PagePresenterProps = {
+  pageListProp: [
     {
       title: string;
       lists: {
         label: string;
         taskList: { task: string; completed: boolean }[];
       }[];
-    }[]
-  >([]);
-  const [activePage, setActivePage] = useState<{
-    title: string;
-    lists: {
-      label: string;
-      taskList: { task: string; completed: boolean }[];
-    }[];
-  }>({ title: "init", lists: [] });
-  const [addingState, setAddingState] = useState<boolean>(false);
+    }[],
+    Function
+  ];
+  activePageProp: [
+    {
+      title: string;
+      lists: {
+        label: string;
+        taskList: { task: string; completed: boolean }[];
+      }[];
+    },
+    Function
+  ];
+  addingStateProp: [boolean, Function];
+};
+
+export default function PagePresenter({
+  pageListProp,
+  activePageProp,
+  addingStateProp,
+}: PagePresenterProps) {
+  const [pageList, setPageList] = pageListProp;
+  const [activePage, setActivePage] = activePageProp;
+  const [addingState, setAddingState] = addingStateProp;
 
   function changeActivePage(page: {
     title: string;
@@ -81,11 +96,13 @@ export default function PagePresenter() {
     );
   } else {
     return (
-      <MobilePageView
-        MobPageList={[pageList, setPageList]}
-        MobActivePage={[activePage, setActivePage]}
-        MobAddingState={[addingState, setAddingState]}
-      />
+      <>
+        <MobilePageView
+          MobPageList={[pageList, setPageList]}
+          MobActivePage={[activePage, setActivePage]}
+          MobAddingState={[addingState, setAddingState]}
+        />
+      </>
     );
   }
 }

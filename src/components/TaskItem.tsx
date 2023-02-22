@@ -52,8 +52,4 @@ const ScDiv = styled.div<{ status: boolean }>`
     props.status === true
       ? "text-decoration: line-through; color: #dcdcdc"
       : "text-decoration: none"};
-
-  @media (max-width: 480px) {
-    width: 300px;
-  }
 `;
