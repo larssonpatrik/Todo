@@ -17,15 +17,59 @@ function App() {
         taskList: { task: string; completed: boolean }[];
       }[];
     }[]
-  >([]);
+  >([
+    {
+      title: "Apartment stuff",
+      lists: [
+        {
+          label: "Fixes",
+          taskList: [
+            { task: "Clean out warddrobe", completed: false },
+            { task: "Fix hammermarks in door", completed: true },
+            { task: "Put up poster", completed: false },
+          ],
+        },
+        {
+          label: "Groceries",
+          taskList: [
+            { task: "Milk", completed: false },
+            { task: "Eggs", completed: false },
+            { task: "Coffee", completed: false },
+            { task: "Pasta", completed: true },
+            { task: "Chicken", completed: true },
+            { task: "Pesto", completed: true },
+          ],
+        },
+      ],
+    },
+  ]);
   const [activePage, setActivePage] = useState<{
     title: string;
     lists: {
       label: string;
       taskList: { task: string; completed: boolean }[];
     }[];
-  }>({ title: "init", lists: [] });
+  }>(pageList[0]);
   const [addingState, setAddingState] = useState<boolean>(false);
+
+  function changeActivePage(page: {
+    title: string;
+    lists: {
+      label: string;
+      taskList: { task: string; completed: boolean }[];
+    }[];
+  }) {
+    setActivePage(page);
+
+    let temp = [...pageList];
+    temp.forEach((pageObj, i) => {
+      if (pageObj.title === activePage.title) {
+        temp[i] = page;
+      }
+    });
+
+    setPageList([...temp]);
+  }
 
   return (
     <>
@@ -37,13 +81,16 @@ function App() {
               pageListProp={[pageList, setPageList]}
               activePageProp={[activePage, setActivePage]}
               addingStateProp={[addingState, setAddingState]}
+              changeActivePageProp={changeActivePage}
             />
           }
         ></Route>
         <Route
           path="/mobile/:listname"
           element={
-            <ListGridPresenter activePageState={[activePage, setActivePage]} />
+            <ListGridPresenter
+              activePageState={[activePage, changeActivePage]}
+            />
           }
         ></Route>
       </Routes>

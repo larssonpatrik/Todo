@@ -16,6 +16,16 @@ export default function TaskItem({
   status,
 }: React.PropsWithChildren<TaskItemProps>) {
   const [hover, setHover] = useState(false);
+  let mobile: boolean;
+  let width: number;
+  width = window.innerWidth;
+
+  if (width > 480) {
+    mobile = false;
+  } else {
+    mobile = true;
+  }
+
   return (
     <ScDiv
       status={status}
@@ -25,7 +35,17 @@ export default function TaskItem({
       <Paragraph action={changeStatus} style={{ lineHeight: "23.5px" }}>
         {children}
       </Paragraph>
-      {hover && (
+      {!mobile && hover && (
+        <AiOutlineClose
+          size={16}
+          style={{ cursor: "pointer", color: "#CF4242" }}
+          onClick={() => {
+            changeStatus();
+            removeTask(children);
+          }}
+        />
+      )}
+      {mobile && (
         <AiOutlineClose
           size={16}
           style={{ cursor: "pointer", color: "#CF4242" }}

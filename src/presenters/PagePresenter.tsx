@@ -31,35 +31,19 @@ type PagePresenterProps = {
     Function
   ];
   addingStateProp: [boolean, Function];
+  changeActivePageProp: Function;
 };
 
 export default function PagePresenter({
   pageListProp,
   activePageProp,
   addingStateProp,
+  changeActivePageProp,
 }: PagePresenterProps) {
   const [pageList, setPageList] = pageListProp;
   const [activePage, setActivePage] = activePageProp;
   const [addingState, setAddingState] = addingStateProp;
-
-  function changeActivePage(page: {
-    title: string;
-    lists: {
-      label: string;
-      taskList: { task: string; completed: boolean }[];
-    }[];
-  }) {
-    setActivePage(page);
-
-    let temp = [...pageList];
-    temp.forEach((pageObj, i) => {
-      if (pageObj.title === activePage.title) {
-        temp[i] = page;
-      }
-    });
-
-    setPageList([...temp]);
-  }
+  const changeActivePage = changeActivePageProp;
 
   let width: number;
   width = window.innerWidth;

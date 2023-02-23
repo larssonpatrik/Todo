@@ -42,7 +42,7 @@ export default function MobilePageView({
   const [activePage, setActivePage] = MobActivePage;
   const [addingState, setAddingState] = MobAddingState;
 
-  function removeListCB(listName: { title: string; lists: {}[] }) {
+  function removePageCB(listName: { title: string; lists: {}[] }) {
     function sameNameCB(list: { title: string; lists: {}[] }) {
       return list.title !== listName.title;
     }
@@ -63,11 +63,10 @@ export default function MobilePageView({
 
   const navigate = useNavigate();
 
-  function navigateToListCB(index: number) {
+  function navigateToPageCB(index: number) {
     setActivePage(pageList[index]);
     navigate("/mobile/" + pageList[index].title);
   }
-  console.log(activePage);
   return (
     <Wrapper direction="col" style={{ backgroundColor: "#f0f0f0" }}>
       <Spacer size={6} />
@@ -85,9 +84,9 @@ export default function MobilePageView({
           <>
             <SidebarItem
               label={pageObj.title}
-              action={() => navigateToListCB(i)}
+              action={() => navigateToPageCB(i)}
               active={activePage.title === pageObj.title}
-              remove={() => removeListCB(pageObj)}
+              remove={() => removePageCB(pageObj)}
               mobile={true}
             />
             <Spacer size={1} />

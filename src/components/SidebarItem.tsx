@@ -22,11 +22,15 @@ export default function SidebarItem({
   return (
     <ScSidebarItem
       active={active}
-      onClick={() => action()}
+      onClick={() => {
+        if (!mobile) action();
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Paragraph style={{ fontWeight: 600 }}>{label}</Paragraph>
+      <Paragraph style={{ fontWeight: 600 }} action={mobile ? action : null}>
+        {label}
+      </Paragraph>
       {!mobile && hover && (
         <AiOutlineClose size={16} color={"#CF4242"} onClick={() => remove()} />
       )}
